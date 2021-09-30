@@ -14,4 +14,5 @@ public class Punto {
     private int idPunto;
     private int x;
     private int y;
+    
 }
