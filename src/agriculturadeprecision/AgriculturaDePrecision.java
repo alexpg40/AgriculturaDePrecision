@@ -46,6 +46,8 @@ public class AgriculturaDePrecision {
                 }
                 return true;
             case 2:
+                Agricultor nuevo = Agricultor.regristrarSesion();
+                agricultores.add(nuevo);
                 return true;
             case 3:
                 return false;
