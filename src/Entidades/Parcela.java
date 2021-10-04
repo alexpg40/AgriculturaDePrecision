@@ -6,6 +6,7 @@
 package Entidades;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -16,12 +17,12 @@ public class Parcela {
     private int idParcela;
     private int idAgricultor;
     private int area;
-    private ArrayList listaPuntos;
+    private Lista<Punto> listaPuntos;
 
     public Parcela() {
     }
 
-    public Parcela(int idParcela, int idAgricultor, int area, ArrayList listaPuntos) {
+    public Parcela(int idParcela, int idAgricultor, int area, Lista<Punto> listaPuntos) {
         this.idParcela = idParcela;
         this.idAgricultor = idAgricultor;
         this.area = area;
@@ -52,14 +53,23 @@ public class Parcela {
         this.area = area;
     }
 
-    public ArrayList getListaPuntos() {
+    public Lista<Punto> getListaPuntos() {
         return listaPuntos;
     }
 
-    public void setListaPuntos(ArrayList listaPuntos) {
+    public void setListaPuntos(Lista<Punto> listaPuntos) {
         this.listaPuntos = listaPuntos;
     }
     
-    
+    public static Parcela registrarParcelas(Agricultor a){
+        Parcela ret = new Parcela();
+        Scanner in = new Scanner(System.in);
+        ret.setIdAgricultor(a.getIdAgricultor());
+        System.out.println("Introduce la idParcela: ");
+        ret.setIdParcela(in.nextInt());
+        System.out.println("Introduce el area: ");
+        ret.setArea(in.nextInt());
+        ret.setListaPuntos(Punto.crearListaPuntos());
+    return ret;}
     
 }
