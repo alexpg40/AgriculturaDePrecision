@@ -6,6 +6,7 @@
 package agriculturadeprecision;
 
 import Entidades.*;
+import Utilidades.Utilidad;
 import java.util.Scanner;
 
 public class AgriculturaDePrecision {
@@ -26,18 +27,22 @@ public class AgriculturaDePrecision {
         puntos.addFinal(new Punto(2, 2, 2));
         Lista<Parcela> parcelas = new Lista<>();
         parcelas.add(new Parcela(1, 1, 200, puntos));
+        parcelas.add(new Parcela(2, 2, 600, puntos));
         Lista<Trabajo> trabajos = new Lista<>();
         trabajos.addFinal(new Trabajo(1, 1, "Abonar", "En espera"));
         trabajos.addFinal(new Trabajo(2, 1, "Fumigar", "En espera"));
         trabajos.addFinal(new Trabajo(3, 1, "Abonar", "En espera"));
         trabajos.addFinal(new Trabajo(4, 1, "Fumigar", "En espera"));
-
+        Lista<Dron> drones = new Lista<>();
+        drones.add(new Dron(1,1));
+        drones.add(new Dron(2,2));
+        
         boolean continuar = true;
         do {
             Scanner in = new Scanner(System.in);
             menuLogging();
             int opcion = in.nextInt();
-            continuar = Logging(opcion, agricultores, parcelas, trabajos);
+            continuar = Logging(opcion, agricultores, parcelas, trabajos, drones);
         } while (continuar);
 
     }
@@ -50,7 +55,7 @@ public class AgriculturaDePrecision {
         System.out.println("----------------------------");
     }
 
-    private static boolean Logging(int opcion, Lista<Agricultor> agricultores, Lista<Parcela> parcelas, Lista<Trabajo> trabajos) {
+    private static boolean Logging(int opcion, Lista<Agricultor> agricultores, Lista<Parcela> parcelas, Lista<Trabajo> trabajos, Lista<Dron> drones) {
         switch (opcion) {
             case 1:
                 Agricultor a = Agricultor.crearAgricultor();
@@ -61,7 +66,7 @@ public class AgriculturaDePrecision {
                     do {
                         menuGestionAgricultor();
                         Scanner in = new Scanner(System.in);
-                        continuar = gestionAgricultor(in.nextInt(), trabajos, parcelas);
+                        continuar = gestionAgricultor(in.nextInt(), trabajos, parcelas, drones, a);
 
                     } while (continuar);
                 } else {
@@ -91,15 +96,17 @@ public class AgriculturaDePrecision {
         System.out.println("----------------------------");
     }
 
-    public static boolean gestionAgricultor(int opcion, Lista<Trabajo> trabajos, Lista<Parcela> parcelas) {
+    public static boolean gestionAgricultor(int opcion, Lista<Trabajo> trabajos, Lista<Parcela> parcelas, Lista<Dron> drones, Agricultor a) {
         menuGestionAgricultor();
         switch (opcion) {
             case 1:
                 trabajos.add(Trabajo.crearTrabajo());
                 return true;
             case 2:
+                drones.add(Dron.registarDron(a));
                 return true;
             case 3:
+                Utilidad.mostrar(a.conseguirParcelas(parcelas));
                 return true;
             case 4:
                 Nodo aux = trabajos.getNodoPrimero();
