@@ -71,5 +71,10 @@ public class Parcela {
         ret.setArea(in.nextInt());
         ret.setListaPuntos(Punto.crearListaPuntos());
     return ret;}
-    
+
+    @Override
+    public String toString() {
+        return "Parcela{" + "idParcela=" + idParcela + ", idAgricultor=" + idAgricultor + ", area=" + area + ", listaPuntos=" + listaPuntos + '}';
+    }
+
 }
