@@ -94,6 +94,7 @@ public class Agricultor {
         while(aux != null){
             Agricultor a = (Agricultor) aux.getInfo();
            if(a.getDNI().equals(DNI) && a.getContraseña().equals(contraseña)){
+               this.idAgricultor = a.idAgricultor;
                return true;
            }
            aux = aux.getSig();
@@ -109,6 +110,18 @@ public class Agricultor {
         in = new Scanner(System.in);
         String contraseña = in.next();
         ret = new Agricultor(DNI, contraseña);
+    return ret;}
+    
+    public Lista<Parcela> conseguirParcelas(Lista<Parcela> parcelas){
+        Lista<Parcela> ret = new Lista<>();
+        Nodo aux = parcelas.getNodoPrimero();
+        while(aux != null){
+            Parcela p = (Parcela) aux.getInfo();
+            if(p.getIdAgricultor() == this.idAgricultor){
+                ret.add(p);
+            }
+            aux = aux.getSig();
+        }
     return ret;}
     
 }
