@@ -124,4 +124,16 @@ public class Agricultor {
         }
     return ret;}
     
+    public Cola<Trabajo> conseguirTrabajos(Cola<Trabajo> trabajos){
+         Cola<Trabajo> ret = new Cola<>();
+         Nodo aux = trabajos.getPrincipio();
+         while(aux != null){
+            Trabajo t = (Trabajo) aux.getInfo();
+            if(t.getIdAgricultor() == this.idAgricultor){
+                ret.encolar(t);
+            }
+            aux = aux.getSig();
+         }
+    return ret;}
+    
 }

@@ -18,4 +18,17 @@ public class Utilidad {
         }
     }
     
+    public static <T> void mostrar(Cola<T> cola){
+        if(cola.isVacio()){
+            System.out.println("La cola esta vacia!");
+        }else{
+            Nodo aux = cola.getPrincipio();
+        while(aux != null){
+            T t = (T) aux.getInfo();
+            System.out.println(t);
+            aux = aux.getSig();
+        }
+        }
+    }
+    
 }

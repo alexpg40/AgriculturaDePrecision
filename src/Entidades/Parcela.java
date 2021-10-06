@@ -74,7 +74,7 @@ public class Parcela {
 
     @Override
     public String toString() {
-        return "Parcela{" + "idParcela=" + idParcela + ", idAgricultor=" + idAgricultor + ", area=" + area + ", listaPuntos=" + listaPuntos + '}';
+        return "Parcela con id " + this.idParcela + " de area " + this.area + ", es del agricultor con id: " + this.idAgricultor;
     }
 
 }

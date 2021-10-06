@@ -15,6 +15,7 @@ public class Trabajo {
    
     private int idTrabajo;
     private int idParcela;
+    private int idAgricultor;
     private String tipoTarea;
     private String estado;
     
@@ -22,11 +23,12 @@ public class Trabajo {
         
     }
     
-    public Trabajo(int idTrabajo, int idParcela, String tipoTarea, String estado){
+    public Trabajo(int idTrabajo, int idParcela, String tipoTarea, String estado, int Agricultor){
         this.idTrabajo = idTrabajo;
         this.idParcela = idParcela;
         this.tipoTarea = tipoTarea;
         this.estado = estado;
+        this.idAgricultor = Agricultor;
     }
 
     public int getIdTrabajo() {
@@ -60,6 +62,14 @@ public class Trabajo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getIdAgricultor() {
+        return idAgricultor;
+    }
+
+    public void setIdAgricultor(int idAgricultor) {
+        this.idAgricultor = idAgricultor;
+    }
     
     public static String elegirTarea(){
         System.out.println("Introduce 1 para Abonar o 2 para Fumigar");
@@ -76,7 +86,6 @@ public class Trabajo {
     public boolean ejecutarTrabajo(Lista<Parcela> parcelas){
         Nodo<Parcela> aux = parcelas.getNodoPrimero();
         while(aux != null){
-            if(aux.getInfo().getIdParcela() == this.idParcela){
                 System.out.println("Empezando la tarea con id " + this.idTrabajo);
                 Nodo<Punto> aux2 = aux.getInfo().getListaPuntos().getNodoPrimero();
                 while(aux2 != null){
@@ -85,20 +94,40 @@ public class Trabajo {
                 }
                 this.estado = "Terminada";
                 System.out.println("Tarea terminada!");
-            }
             aux = aux.getSig();
         }
     return false;}
     
-    public static Trabajo crearTrabajo(){
+    public static Trabajo crearTrabajo(Lista<Parcela> parcelas, int idAgricultor){
         Trabajo ret = new Trabajo();
         System.out.println("Introduce el idTrabajo: ");
         Scanner in = new Scanner(System.in);
         ret.setIdTrabajo(in.nextInt());
-        System.out.println("Introduce la idParcela: ");
-        ret.setIdParcela(in.nextInt());
+        int idParcela = 0;
+        boolean continuar = true;
+        do{
+            System.out.println("Introduce la idParcela (La parcela debe pertenercele): ");
+            idParcela = in.nextInt();
+            Nodo aux = parcelas.getNodoPrimero();
+            while(aux != null){
+                Parcela p = (Parcela) aux.getInfo();
+                if(p.getIdParcela() == idParcela){
+                    ret.setIdParcela(idParcela);
+                    continuar = false;
+                    break;
+                }
+                aux = aux.getSig();
+            }
+        }while(continuar);
         ret.setTipoTarea(Trabajo.elegirTarea());
         ret.setEstado("En espera");
+        ret.setIdAgricultor(idAgricultor);
     return ret;}
+
+    @Override
+    public String toString() {
+        return "El Trabajo de " + this.tipoTarea+ " con la id " + this.idTrabajo + ", de la parcela con id " + this.idParcela + ", esta en estado: " + this.estado;
+    }
+    
     
 }
